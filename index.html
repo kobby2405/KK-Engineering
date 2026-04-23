@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KK Engineering Company | Telecommunication Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+============================================================ */
+:root {
+  --bg-primary: #050d1a;
+  --bg-secondary: #081527;
+  --bg-card: rgba(8, 25, 50, 0.7);
+  --bg-glass: rgba(255,255,255,0.04);
+  --text-primary: #e8f0fe;
+  --text-secondary: #8ba3c7;
+  --text-muted: #4d6a8a;
+  --accent: #00c8ff;
+  --accent-glow: rgba(0, 200, 255, 0.15);
+  --accent-2: #0077ff;
+  --gold: #f0a500;
+  --border: rgba(0, 200, 255, 0.12);
+  --border-hover: rgba(0, 200, 255, 0.35);
+  --nav-bg: rgba(5, 13, 26, 0.88);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 40px rgba(0, 200, 255, 0.12);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg-primary: #f0f5ff;
+  --bg-secondary: #e2ecff;
+  --bg-card: rgba(255,255,255,0.8);
+  --bg-glass: rgba(0,0,0,0.03);
+  --text-primary: #0a1628;
+  --text-secondary: #3a5a8a;
+  --text-muted: #7a9bc4;
+  --accent: #0066cc;
+  --accent-glow: rgba(0,102,204,0.1);
+  --accent-2: #0044aa;
+  --border: rgba(0,102,204,0.15);
+  --border-hover: rgba(0,102,204,0.4);
+  --nav-bg: rgba(240,245,255,0.92);
+  --shadow-card: 0 8px 32px rgba(0,50,120,0.12);
+  --shadow-glow: 0 0 40px rgba(0,102,204,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+h1,h2,h3,h4 { font-family: 'Syne', sans-serif; line-height: 1.2; }
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+/* ============================================================
+   NOISE OVERLAY
+============================================================ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ============================================================
+   GRID LINES BG
+============================================================ */
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 max(24px, calc(50vw - 600px));
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  transition: var(--transition);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-logo-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff;
+  box-shadow: 0 0 20px rgba(0,200,255,0.3);
+}
+.nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+.nav-logo-text span { color: var(--accent); }
+nav ul { display: flex; gap: 4px; }
+nav ul a {
+  font-size: 0.875rem; font-weight: 500; padding: 8px 14px;
+  border-radius: var(--radius-sm); color: var(--text-secondary);
+  transition: var(--transition);
+}
+nav ul a:hover { color: var(--text-primary); background: var(--bg-glass); }
+nav ul a.active { color: var(--accent); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.theme-toggle {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--bg-glass); color: var(--text-secondary);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: var(--transition);
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.nav-cta {
+  padding: 9px 20px; border-radius: 99px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; font-size: 0.875rem; font-weight: 600;
+  transition: var(--transition); box-shadow: 0 0 20px rgba(0,200,255,0.2);
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(0,200,255,0.35); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: var(--transition); }
+.mobile-menu {
+  display: none; position: fixed; top: 68px; left: 0; right: 0; z-index: 999;
+  background: var(--nav-bg); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); padding: 16px 24px 24px;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu ul { flex-direction: column; gap: 2px; }
+.mobile-menu ul li a { display: block; padding: 12px 16px; border-radius: var(--radius-sm); }
+
+/* ============================================================
+   SECTIONS COMMON
+============================================================ */
+section { position: relative; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-pad { padding: 100px 0; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-glow);
+  border: 1px solid rgba(0,200,255,0.2); border-radius: 99px;
+  padding: 5px 14px; margin-bottom: 16px;
+}
+.section-title { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+.section-subtitle { font-size: 1.05rem; color: var(--text-secondary); max-width: 560px; line-height: 1.7; }
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, #60c0ff 50%, var(--accent-2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.divider {
+  width: 48px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  margin-bottom: 32px;
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+#hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding-top: 68px; overflow: hidden;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,100,255,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,200,255,0.05) 0%, transparent 60%),
+              var(--bg-primary);
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  padding: 60px 0;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); background: rgba(240,165,0,0.08); border: 1px solid rgba(240,165,0,0.2);
+  border-radius: 99px; padding: 5px 14px; margin-bottom: 24px;
+}
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.04em;
+  margin-bottom: 20px; line-height: 1.05;
+}
+.hero-sub {
+  font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 36px; max-width: 480px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 99px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; font-weight: 600; font-size: 0.95rem;
+  transition: var(--transition); box-shadow: 0 0 30px rgba(0,200,255,0.25);
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,200,255,0.4); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 99px;
+  background: transparent; border: 1.5px solid var(--border-hover);
+  color: var(--text-primary); font-weight: 500; font-size: 0.95rem;
+  transition: var(--transition); cursor: pointer;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+.hero-stats { display: flex; gap: 36px; }
+.hero-stat-value {
+  font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+  color: var(--accent); line-height: 1;
+}
+.hero-stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+.hero-visual { position: relative; }
+.hero-img-wrap {
+  position: relative; border-radius: 24px; overflow: hidden;
+  aspect-ratio: 4/3;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+.hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(5,13,26,0.7) 100%);
+}
+.hero-float-card {
+  position: absolute; bottom: -20px; left: -20px;
+  background: var(--bg-card); backdrop-filter: blur(16px);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 20px; min-width: 200px;
+  box-shadow: var(--shadow-card);
+  animation: float 3s ease-in-out infinite;
+}
+.hero-float-card2 {
+  position: absolute; top: -16px; right: -16px;
+  background: var(--bg-card); backdrop-filter: blur(16px);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-card);
+  animation: float 4s ease-in-out infinite 1.5s;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.float-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.float-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text-primary); }
+.float-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 6px; box-shadow: 0 0 6px #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-muted); font-size: 0.75rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ============================================================
+   ABOUT
+============================================================ */
+#about {
+  background: var(--bg-secondary);
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+}
+.about-img-stack { position: relative; }
+.about-img-main {
+  border-radius: 20px; overflow: hidden; aspect-ratio: 3/4;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+.about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+.about-img-accent {
+  position: absolute; bottom: -28px; right: -28px;
+  width: 55%; border-radius: 16px; overflow: hidden;
+  border: 3px solid var(--bg-secondary);
+  box-shadow: var(--shadow-card);
+}
+.about-img-accent img { width: 100%; height: 100%; object-fit: cover; }
+.about-exp-badge {
+  position: absolute; top: -16px; left: -16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 14px; padding: 18px; text-align: center;
+  box-shadow: 0 8px 32px rgba(0,200,255,0.35);
+  min-width: 100px;
+}
+.about-exp-badge .num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; }
+.about-exp-badge .text { font-size: 0.7rem; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+.about-feature {
+  background: var(--bg-glass); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  transition: var(--transition);
+}
+.about-feature:hover { border-color: var(--border-hover); background: var(--accent-glow); }
+.about-feature-icon { color: var(--accent); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+.about-feature-title { font-weight: 600; font-size: 0.9rem; }
+.about-feature-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ============================================================
+   SERVICES
+============================================================ */
+#services { background: var(--bg-primary); }
+.services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 24px; flex-wrap: wrap; }
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.service-card {
+  background: var(--bg-card); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 32px 28px; position: relative; overflow: hidden;
+  transition: var(--transition); cursor: default;
+}
+.service-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--accent-glow), transparent);
+  opacity: 0; transition: var(--transition);
+}
+.service-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+.service-card:hover::before { opacity: 1; }
+.service-num {
+  font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800;
+  color: var(--border); position: absolute; right: 20px; top: 16px;
+  line-height: 1; pointer-events: none;
+}
+.service-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: #fff; margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,200,255,0.25);
+}
+.service-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+.service-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; }
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.service-tag {
+  font-size: 0.7rem; padding: 3px 10px; border-radius: 99px;
+  background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(0,200,255,0.2);
+}
+
+/* ============================================================
+   PROJECTS
+============================================================ */
+#projects { background: var(--bg-secondary); }
+.project-filters { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 8px 18px; border-radius: 99px; font-size: 0.85rem; font-weight: 500;
+  border: 1px solid var(--border); background: var(--bg-glass);
+  color: var(--text-secondary); cursor: pointer; transition: var(--transition);
+}
+.filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+.projects-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.project-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: var(--transition);
+}
+.project-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+.project-img { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.project-card:hover .project-img img { transform: scale(1.06); }
+.project-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(5,13,26,0.9) 100%);
+}
+.project-cat {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  padding: 4px 10px; border-radius: 99px;
+}
+.project-body { padding: 24px; }
+.project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.project-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+.project-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.project-tool {
+  font-size: 0.72rem; padding: 3px 9px; border-radius: 4px;
+  background: var(--bg-glass); border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   SKILLS
+============================================================ */
+#skills { background: var(--bg-primary); }
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+.skills-col-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 28px; color: var(--accent); }
+.skill-item { margin-bottom: 20px; }
+.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.skill-name { font-weight: 500; font-size: 0.9rem; }
+.skill-pct { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+.skill-bar { height: 6px; border-radius: 99px; background: var(--bg-glass); border: 1px solid var(--border); overflow: hidden; }
+.skill-fill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 0 8px rgba(0,200,255,0.4);
+}
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tool-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px 16px; text-align: center; transition: var(--transition);
+}
+.tool-card:hover { border-color: var(--border-hover); background: var(--accent-glow); }
+.tool-icon { font-size: 1.8rem; margin-bottom: 8px; color: var(--accent); }
+.tool-name { font-weight: 600; font-size: 0.85rem; }
+.tool-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+/* ============================================================
+   CONTACT
+============================================================ */
+#contact {
+  background: var(--bg-secondary);
+}
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px;
+}
+.contact-info-items { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+.contact-info-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; transition: var(--transition);
+}
+.contact-info-item:hover { border-color: var(--border-hover); }
+.contact-info-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1rem;
+  box-shadow: 0 4px 16px rgba(0,200,255,0.25);
+}
+.contact-info-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.contact-info-value { font-weight: 600; font-size: 0.95rem; }
+.map-embed { margin-top: 28px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.contact-form {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px;
+}
+.form-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+.form-sub { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 20px; }
+.form-label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+.form-input, .form-textarea {
+  width: 100%; padding: 12px 16px;
+  background: var(--bg-glass); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  outline: none; transition: var(--transition); resize: none;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.form-textarea { min-height: 140px; }
+.form-submit {
+  width: 100%; padding: 14px; border: none; border-radius: 99px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 20px rgba(0,200,255,0.3);
+}
+.form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,200,255,0.45); }
+.form-success {
+  display: none; text-align: center; padding: 32px;
+  color: #22c55e; font-size: 1.1rem; font-weight: 600;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  background: #030b17; border-top: 1px solid var(--border);
+  padding: 60px 0 0;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid var(--border);
+}
+.footer-brand p { font-size: 0.875rem; color: var(--text-muted); margin-top: 14px; max-width: 260px; line-height: 1.7; }
+.footer-col-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary); margin-bottom: 18px; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 0.875rem; color: var(--text-muted); transition: var(--transition); }
+.footer-col ul li a:hover { color: var(--accent); }
+.footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.875rem; color: var(--text-muted); }
+.footer-contact-item i { color: var(--accent); width: 16px; flex-shrink: 0; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0; flex-wrap: wrap; gap: 12px;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.footer-socials { display: flex; gap: 10px; }
+.social-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--bg-glass);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 0.85rem; transition: var(--transition);
+}
+.social-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+
+. { transition-delay: 0.2s; }
+. { transition-delay: 0.3s; }
+. { transition-delay: 0.4s; }
+. { transition-delay: 0.5s; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 768px) {
+  nav ul, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { order: -1; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-stack { margin-bottom: 60px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-pad { padding: 72px 0; }
+  .about-img-accent { display: none; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<header id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-icon"><i class="fas fa-broadcast-tower"></i></div>
+    <div class="nav-logo-text">KK <span>Engineering</span></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <a href="#contact" class="nav-cta">Get In Touch</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero" onclick="closeMobile()">Home</a></li>
+    <li><a href="#about" onclick="closeMobile()">About</a></li>
+    <li><a href="#services" onclick="closeMobile()">Services</a></li>
+    <li><a href="#projects" onclick="closeMobile()">Projects</a></li>
+    <li><a href="#skills" onclick="closeMobile()">Skills</a></li>
+    <li><a href="#contact" onclick="closeMobile()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="float-dot"></span> Available for Projects — Accra, Ghana
+        </div>
+        <h1 class="hero-title">
+          <span class="text-gradient">KK Engineering</span><br>Company
+        </h1>
+        <p class="hero-sub">
+          Innovative Telecommunication Solutions — delivering reliable, high-performance communication systems, fiber optic infrastructure, and wireless networks across Ghana and beyond.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            <i class="fas fa-paper-plane"></i> Contact Us
+          </a>
+          <a href="#projects" class="btn-outline">
+            <i class="fas fa-folder-open"></i> Our Projects
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">50+</div>
+            <div class="hero-stat-label">Projects Delivered</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">8+</div>
+            <div class="hero-stat-label">Years Experience</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">100%</div>
+            <div class="hero-stat-label">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="img-towers.jpg" alt="Telecommunication towers at sunset"/>
+          <div class="hero-img-overlay"></div>
+        </div>
+        <div class="hero-float-card">
+          <div class="float-label">System Status</div>
+          <div class="float-value"><span class="float-dot"></span> All Networks Online</div>
+        </div>
+        <div class="hero-float-card2">
+          <div class="float-label">Coverage</div>
+          <div class="float-value" style="color:var(--accent)">5G Ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-stack">
+        <div class="about-img-main">
+          <img src="img-engineer.png" alt="KK Engineering Engineer at work"/>
+        </div>
+        <div class="about-img-accent">
+          <img src="img-fiber.jpg" alt="Fiber optic technology"/>
+        </div>
+        <div class="about-exp-badge">
+          <div class="num">8+</div>
+          <div class="text">Years<br>Experience</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label"><i class="fas fa-info-circle"></i> About Us</div>
+        <h2 class="section-title">Connecting the World, <span class="text-gradient">One Signal at a Time</span></h2>
+        <div class="divider"></div>
+        <p style="color:var(--text-secondary); margin-bottom: 16px; font-size: 0.95rem;">
+          KK Engineering Company is a Madina-based telecommunications firm specializing in the design, installation, and maintenance of advanced communication systems. We combine technical expertise with a passion for innovation to deliver solutions that keep businesses and communities connected.
+        </p>
+        <p style="color:var(--text-secondary); margin-bottom: 32px; font-size: 0.95rem;">
+          From fiber optic backbone networks to wireless infrastructure and RF engineering, our team has the skills and experience to handle complex telecoms challenges across diverse environments.
+        </p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fas fa-network-wired"></i></div>
+            <div>
+              <div class="about-feature-title">Network Systems</div>
+              <div class="about-feature-desc">End-to-end network design and deployment</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fas fa-broadcast-tower"></i></div>
+            <div>
+              <div class="about-feature-title">Signal Transmission</div>
+              <div class="about-feature-desc">RF engineering and signal optimization</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fas fa-lightbulb"></i></div>
+            <div>
+              <div class="about-feature-title">Innovation</div>
+              <div class="about-feature-desc">Cutting-edge telecom technologies</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <div>
+              <div class="about-feature-title">Quality First</div>
+              <div class="about-feature-desc">Industry-standard compliance and testing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section id="services" class="section-pad">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <div class="section-label"><i class="fas fa-cogs"></i> Our Services</div>
+        <h2 class="section-title">What We <span class="text-gradient">Deliver</span></h2>
+      </div>
+      <p class="section-subtitle" style="margin:0;">
+        Comprehensive telecommunication services tailored to your connectivity needs.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+        <h3 class="service-title">Network Installation & Configuration</h3>
+        <p class="service-desc">Design and deployment of LAN, WAN, and enterprise-grade networks. Full configuration of routers, switches, and access points for optimal performance.</p>
+        <div class="service-tags">
+          <span class="service-tag">LAN/WAN</span>
+          <span class="service-tag">Cisco</span>
+          <span class="service-tag">Routing</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon"><i class="fas fa-project-diagram"></i></div>
+        <h3 class="service-title">Fiber Optic Solutions</h3>
+        <p class="service-desc">Installation, splicing, and testing of single-mode and multi-mode fiber optic cables. OTDR testing, patch panel setup, and end-to-end fiber infrastructure.</p>
+        <div class="service-tags">
+          <span class="service-tag">OTDR</span>
+          <span class="service-tag">Splicing</span>
+          <span class="service-tag">FTTH</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon"><i class="fas fa-wifi"></i></div>
+        <h3 class="service-title">Wireless Communication Systems</h3>
+        <p class="service-desc">Deployment of wireless access networks, microwave links, and cellular infrastructure. Site surveys, link budgeting, and antenna alignment.</p>
+        <div class="service-tags">
+          <span class="service-tag">Microwave</span>
+          <span class="service-tag">4G/5G</span>
+          <span class="service-tag">P2P Links</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon"><i class="fas fa-satellite-dish"></i></div>
+        <h3 class="service-title">RF & Signal Engineering</h3>
+        <p class="service-desc">Radio frequency planning, spectrum analysis, and signal optimization. Interference mitigation and propagation modelling for reliable wireless coverage.</p>
+        <div class="service-tags">
+          <span class="service-tag">Spectrum</span>
+          <span class="service-tag">Propagation</span>
+          <span class="service-tag">MATLAB</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-icon"><i class="fas fa-tools"></i></div>
+        <h3 class="service-title">Maintenance & Technical Support</h3>
+        <p class="service-desc">Preventive and corrective maintenance of telecom infrastructure. 24/7 technical support, fault diagnosis, and network performance monitoring.</p>
+        <div class="service-tags">
+          <span class="service-tag">24/7 Support</span>
+          <span class="service-tag">NOC</span>
+          <span class="service-tag">Diagnostics</span>
+        </div>
+      </div>
+      <div class="service-card" style="background: linear-gradient(135deg, rgba(0,120,255,0.1), rgba(0,200,255,0.08)); border-color: rgba(0,200,255,0.25);">
+        <div class="service-num">+</div>
+        <div class="service-icon" style="background: linear-gradient(135deg, var(--gold), #e06010);"><i class="fas fa-star"></i></div>
+        <h3 class="service-title">Custom Telecom Consulting</h3>
+        <p class="service-desc">Technical feasibility studies, project planning, and telecom consulting. Helping clients choose the right technology for their unique connectivity challenges.</p>
+        <div class="service-tags">
+          <span class="service-tag">Consulting</span>
+          <span class="service-tag">Feasibility</span>
+          <span class="service-tag">Planning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS
+============================================================ -->
+<section id="projects" class="section-pad">
+  <div class="container">
+    <div style="margin-bottom: 40px;">
+      <div class="section-label"><i class="fas fa-folder-open"></i> Our Work</div>
+      <h2 class="section-title">Featured <span class="text-gradient">Projects</span></h2>
+      <p class="section-subtitle">A selection of our telecom infrastructure and engineering deployments.</p>
+    </div>
+    <div class="project-filters">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="fiber">Fiber Optic</button>
+      <button class="filter-btn" data-filter="wireless">Wireless</button>
+      <button class="filter-btn" data-filter="network">Networking</button>
+      <button class="filter-btn" data-filter="rf">RF Systems</button>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card" data-category="fiber">
+        <div class="project-img">
+          <img src="img-panel.jpg" alt="Fiber Optic Patch Panel Installation"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">Fiber Optic</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Fiber Optic Distribution Network</h3>
+          <p class="project-desc">Design and installation of a 40-channel DWDM fiber optic backbone for a corporate campus. Included patch panel configuration, OTDR testing, and end-to-end commissioning.</p>
+          <div class="project-tools">
+            <span class="project-tool">OTDR</span>
+            <span class="project-tool">DWDM</span>
+            <span class="project-tool">Splicing Kit</span>
+            <span class="project-tool">LC/APC Connectors</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-category="wireless">
+        <div class="project-img">
+          <img src="img-tower-tech.png" alt="Tower Maintenance and Installation"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">Wireless</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Telecom Tower Upgrade — 4G LTE</h3>
+          <p class="project-desc">Upgrade of existing 3G tower infrastructure to 4G LTE. Antenna replacement, RRU installation, and RF optimization across a cluster of 12 sites in Greater Accra.</p>
+          <div class="project-tools">
+            <span class="project-tool">RRU</span>
+            <span class="project-tool">Huawei BBU</span>
+            <span class="project-tool">Drive Test Tools</span>
+            <span class="project-tool">Site Survey</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-category="network">
+        <div class="project-img">
+          <img src="img-tower-tech2.png" alt="Enterprise WAN Network Infrastructure"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">Networking</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Enterprise LAN Infrastructure</h3>
+          <p class="project-desc">Full structured cabling and network infrastructure deployment for a 5-floor commercial building. Cat6A cabling, patch panels, Cisco switches, and access point installation.</p>
+          <div class="project-tools">
+            <span class="project-tool">Cat6A</span>
+            <span class="project-tool">Cisco Switches</span>
+            <span class="project-tool">Packet Tracer</span>
+            <span class="project-tool">Crimping Tools</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-category="rf">
+        <div class="project-img">
+          <img src="img-towers.jpg" alt="RF and Antenna Array"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">RF Systems</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">RF Propagation Modelling Study</h3>
+          <p class="project-desc">Comprehensive RF propagation analysis for a new wireless broadband deployment. Coverage prediction, interference analysis, and frequency planning using MATLAB simulation tools.</p>
+          <div class="project-tools">
+            <span class="project-tool">MATLAB</span>
+            <span class="project-tool">Atoll</span>
+            <span class="project-tool">Spectrum Analyzer</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-category="fiber">
+        <div class="project-img">
+          <img src="img-fiber.jpg" alt="Fiber Optic Network"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">Fiber Optic</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">FTTH Last-Mile Deployment</h3>
+          <p class="project-desc">Fiber-to-the-Home rollout covering 200 residential units in Madina. Drop cable installation, splitter placement, ONT configuration, and service activation.</p>
+          <div class="project-tools">
+            <span class="project-tool">GPON</span>
+            <span class="project-tool">ONT</span>
+            <span class="project-tool">Drop Cable</span>
+            <span class="project-tool">Power Meter</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-category="wireless">
+        <div class="project-img">
+          <img src="img-logo.jpg" alt="Wireless Site Installation"/>
+          <div class="project-overlay"></div>
+          <span class="project-cat">Wireless</span>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Point-to-Point Microwave Link</h3>
+          <p class="project-desc">Deployment of a high-capacity P2P microwave link between two data centers 15km apart. Antenna alignment, link budget calculation, and commissioning to achieve 99.99% availability.</p>
+          <div class="project-tools">
+            <span class="project-tool">Ubiquiti airFiber</span>
+            <span class="project-tool">Link Budget</span>
+            <span class="project-tool">VLAN Config</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS
+============================================================ -->
+<section id="skills" class="section-pad">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="section-label"><i class="fas fa-chart-bar"></i> Expertise</div>
+    <h2 class="section-title" style="margin-bottom: 56px;">Technical <span class="text-gradient">Skills & Tools</span></h2>
+    <div class="skills-grid">
+      <div class="">
+        <div class="skills-col-title"><i class="fas fa-signal"></i> Technical Proficiencies</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Fiber Optics & DWDM</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Network Design & Configuration</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">RF & Signal Engineering</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Wireless Systems (4G/5G)</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Structured Cabling</span><span class="skill-pct">97%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="97"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Network Security & VPN</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+      </div>
+      <div class="">
+        <div class="skills-col-title"><i class="fas fa-wrench"></i> Tools & Software</div>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-calculator"></i></div>
+            <div class="tool-name">MATLAB</div>
+            <div class="tool-desc">Signal & RF simulation</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-microchip"></i></div>
+            <div class="tool-name">Proteus</div>
+            <div class="tool-desc">Circuit simulation</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-network-wired"></i></div>
+            <div class="tool-name">Cisco Packet Tracer</div>
+            <div class="tool-desc">Network simulation</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-satellite-dish"></i></div>
+            <div class="tool-name">Atoll / Planet</div>
+            <div class="tool-desc">RF planning</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-eye"></i></div>
+            <div class="tool-name">Wireshark</div>
+            <div class="tool-desc">Packet analysis</div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="tool-name">OTDR Software</div>
+            <div class="tool-desc">Fiber testing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section id="contact" class="section-pad">
+  <div class="container">
+    <div class="section-label"><i class="fas fa-envelope"></i> Get In Touch</div>
+    <h2 class="section-title" style="margin-bottom: 56px;">Let's Work <span class="text-gradient">Together</span></h2>
+    <div class="contact-grid">
+      <div class="">
+        <p style="color:var(--text-secondary); margin-bottom: 8px; font-size: 0.95rem;">
+          Ready to transform your communication infrastructure? Reach out to our team in Madina for a free consultation.
+        </p>
+        <div class="contact-info-items">
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <div class="contact-info-label">Phone</div>
+              <div class="contact-info-value">0535 597 312</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-value">robert@robertmartey.com</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-info-label">Location</div>
+              <div class="contact-info-value">Madina, Greater Accra, Ghana</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div class="contact-info-label">Working Hours</div>
+              <div class="contact-info-value">Mon – Fri, 8:00 AM – 6:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.1855!2d-0.1660!3d5.6796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b1b7c8c1a0b%3A0xabcdef1234567890!2sMadina%2C%20Accra%2C%20Ghana!5e0!3m2!1sen!2sgh!4v1680000000000!5m2!1sen!2sgh"
+            width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="KK Engineering Location">
+          </iframe>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-title">Send a Message</div>
+        <div class="form-sub">Fill out the form and we'll respond within 24 hours.</div>
+        <iframe aria-label='Contact Us' frameborder="0" style="height:500px;width:99%;border:none;" src='https://forms.zohopublic.com/robertrobert1/form/ContactUs/formperma/pt205HkKHjVd7Alqdrzhr-pv5gzDF9cSwl4SGi49_yg'></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 14px;">
+          <div class="nav-logo-icon"><i class="fas fa-broadcast-tower"></i></div>
+          <div class="nav-logo-text" style="font-size: 1.1rem;">KK <span>Engineering</span></div>
+        </div>
+        <p>Delivering innovative telecommunication solutions across Ghana. Connecting people, businesses, and communities with reliable infrastructure.</p>
+        <div class="footer-socials" style="margin-top: 20px;">
+          <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:robert@robertmartey.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="#services">Network Installation</a></li>
+          <li><a href="#services">Fiber Optic</a></li>
+          <li><a href="#services">Wireless Systems</a></li>
+          <li><a href="#services">RF Engineering</a></li>
+          <li><a href="#services">Maintenance</a></li>
+          <li><a href="#services">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i> 0535 597 312</div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i> robert@robertmartey.com</div>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Madina, Accra, Ghana</div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i> Mon–Fri, 8AM–6PM</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 KK Engineering Company. All rights reserved.</div>
+      <div style="color: var(--text-muted);">Built with precision in Accra, Ghana 🇬🇭</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// ----- THEME TOGGLE -----
+try {
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+let isDark = true;
+
+themeToggle.addEventListener('click', () => {
+  isDark = !isDark;
+  root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+});
+
+// ----- MOBILE MENU -----
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMobile() { mobileMenu.classList.remove('open'); }
+
+// ----- ACTIVE NAV -----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav ul a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -20px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+  }
+  // Always make everything visible after 300ms as a guaranteed fallback
+  setTimeout(() => {
+    document.querySelectorAll('.').forEach(el => el.classList.add('visible'));
+  }, 300);
+} catch(e) {
+  document.querySelectorAll('.').forEach(el => el.classList.add('visible'));
+}
+
+// ----- SKILL BARS -----
+const skillBars = document.querySelectorAll('.skill-fill');
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.getAttribute('data-width');
+      setTimeout(() => { e.target.style.width = w + '%'; }, 200);
+      skillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+skillBars.forEach(bar => skillObserver.observe(bar));
+
+// ----- PROJECT FILTERS -----
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.getAttribute('data-filter');
+    projectCards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      if (filter === 'all' || cat === filter) {
+        card.style.opacity = '1';
+        card.style.transform = '';
+        card.style.pointerEvents = '';
+      } else {
+        card.style.opacity = '0.2';
+        card.style.transform = 'scale(0.97)';
+        card.style.pointerEvents = 'none';
+      }
+    });
+  });
+});
+
+// ----- CONTACT FORM -----
+} catch(e) { console.warn(e); }
+
+  err.textContent = msg;
+}
+</script>
+</body>
+</html>
